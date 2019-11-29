@@ -8,6 +8,9 @@ To learn how to use this program just call it and read the help
 
 You need golang installed
 
+If you have installed golang in a custom location 
+please open the file .env and change GOROOT accordingly.
+
 Then just run this command from this directory:
 
 ```shell
