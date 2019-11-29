@@ -14,8 +14,8 @@ please open the file .env and change GOROOT accordingly.
 Then just run this command from this directory:
 
 ```shell
-GOPATH=$PWD go get -t ./...
-go install bcrypt-password-hash
+go get -t ./...
+GOPATH=$PWD go install bcrypt-password-hash
 ```
 
 Totally ignore any errors... believe me it should work.
