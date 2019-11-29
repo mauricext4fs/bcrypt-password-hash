@@ -35,13 +35,13 @@ func main() {
 		// Not implemented
 	} else {
 		fmt.Println("Argument invalid. Usage: ")
-		fmt.Println("foxhash hash 'pass' cost")
+		fmt.Println("./bcrypt-password-hash hash 'pass' cost")
 		fmt.Println(" - hash is the function to use")
 		fmt.Println(" - pass is the password to hash")
 		fmt.Println(" - cost (Integer) between 4 and 31 is the hardning cost to use...")
 		fmt.Println(" anything under 10 is not recommended. The higher the harder to break.")
 		fmt.Println(" ")
-		fmt.Println("foxyhash check 'hash' 'pass'")
+		fmt.Println("./bcrypt-password-hash check 'hash' 'pass'")
 		fmt.Println(" - check is the function to use")
 		fmt.Println(" - hash is saved hash to check against")
 		fmt.Println(" - pass is the clear text password to compare with the hash")
