@@ -1,6 +1,6 @@
 /*
- * Bcrypt Password hasher
- */
+  Bcrypt Password hasher
+*/
 package main
 
 import (
@@ -16,7 +16,7 @@ func main() {
 	// Always print the How-to
 	printHello()
 
-	if len(os.Args) == 4 && os.Args[1] == "hash"  {
+	if len(os.Args) == 4 && os.Args[1] == "hash" {
 		// hash pass
 		cost, err := strconv.Atoi(os.Args[3])
 		if err != nil {
@@ -26,7 +26,7 @@ func main() {
 		hash := hashAndSalt([]byte(os.Args[2]), cost)
 		fmt.Println(hash)
 		os.Exit(0)
-	} else if  len(os.Args) == 4 && os.Args[1] == "check" {
+	} else if len(os.Args) == 4 && os.Args[1] == "check" {
 		// check
 		pass := []byte(os.Args[3])
 		//fmt.Println("hash: ", string(os.Args[2]), " and pass ", string(os.Args[3]))
