@@ -15,5 +15,18 @@ build:  ## Run go build (don't use this)
 install: ## Run go install
 	GOPATH=${PWD} go install bcrypt-password-hash
 
-run: ## Run bcrypt-password-hash ex: PASS=vlad COST=10 make run
-	./bin/bcrypt-password-hash "${PASS}" ${COST}
+hash: ## Run bcrypt-password-hash ex: PASS='vlad' COST=10 make hash
+	@if [ -z "$(PASS)" ];\
+	then\
+		echo "PASS not defined";\
+		exit 1;\
+	fi
+	@if [ -z "$(COST)" ];\
+	then\
+		echo "COST not defined";\
+		exit 1;\
+	fi
+	./bin/bcrypt-password-hash hash '${PASS}' ${COST}
+
+check: ## Run bcrypt-password-hash ex: PASS='vlad' HASH='hash' make check
+	./bin/bcrypt-password-hash check ${HASH} ${PASS}
