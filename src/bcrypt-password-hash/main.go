@@ -13,9 +13,6 @@ import (
 
 func main() {
 
-	// Always print the How-to
-	printHello()
-
 	if len(os.Args) == 4 && os.Args[1] == "hash" {
 		// hash pass
 		cost, err := strconv.Atoi(os.Args[3])
@@ -23,15 +20,24 @@ func main() {
 			log.Println(err)
 			os.Exit(3)
 		}
-		hash := hashAndSalt([]byte(os.Args[2]), cost)
+		hash, err := hashAndSalt([]byte(os.Args[2]), cost)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
 		fmt.Println(hash)
 		os.Exit(0)
 	} else if len(os.Args) == 4 && os.Args[1] == "check" {
 		// check
 		pass := []byte(os.Args[3])
 		//fmt.Println("hash: ", string(os.Args[2]), " and pass ", string(os.Args[3]))
-		fmt.Println(comparePasswords(os.Args[2], pass))
-		os.Exit(0)
+		err := comparePasswords(os.Args[2], pass)
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(0)
+		}
+		fmt.Println(true)
+		os.Exit(1)
 	} else {
 		// No recognisable args
 		printHowTo()
@@ -76,25 +82,17 @@ In all cases an exist return value other than 0 mean that an error occurs
 }
 
 // Take Password and cost and return hash
-func hashAndSalt(pwd []byte, cost int) string {
+func hashAndSalt(pwd []byte, cost int) (strHash string, err error) {
 
-	hash, err := bcrypt.GenerateFromPassword(pwd, cost)
-	if err != nil {
-		log.Println(err)
-		os.Exit(1)
-	}
-	return string(hash)
+	hash, intErr := bcrypt.GenerateFromPassword(pwd, cost)
+	strHash = string(hash)
+	err = intErr
+	return
 }
 
 // Compare hash and Password
-func comparePasswords(hashedPwd string, plainPwd []byte) bool {
-	// convert string  to a byte slice
+func comparePasswords(hashedPwd string, plainPwd []byte) (err error) {
 	byteHash := []byte(hashedPwd)
-	err := bcrypt.CompareHashAndPassword(byteHash, plainPwd)
-	if err != nil {
-		log.Println(err)
-		return false
-	}
-
-	return true
+	err = bcrypt.CompareHashAndPassword(byteHash, plainPwd)
+	return
 }
